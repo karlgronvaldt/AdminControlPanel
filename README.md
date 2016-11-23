@@ -1,3 +1,3 @@
 # Admin interface for internetcafe
 
-Partially finished
+Partially finished - created with VueJS
