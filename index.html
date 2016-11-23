@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+		<title>DSRack Admin Interface</title>
+		<!-- Latest compiled and minified Bootstrap CSS -->
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+		<!-- Latest compiled contextMenu CSS -->
+		<link rel="stylesheet" href="contextMenu.css">
+		<!-- Custom CSS -->
+		<link rel="stylesheet" href="main.css">
+	</head>
+	<body>
+		<div class="container-fluid">
+			<div class="row">
+				<nav class="col-md-12">
+					<ul>
+						<li><a class="active" href="/">DSRack Admin Interface</a></li>
+					</ul>
+				</nav>
+			</div>
+			<main id="app">
+			<div class="row">
+				<div class="col-md-2 sidebar_wrapper">
+					<div class="sidebar">
+						<div class="form-group">
+							<input class="form-control search_user" type="text" placeholder="Search user">
+						</div>
+						<button class="btn btn-default edit_layout" >Edit layout</button>
+						<button class="btn btn-default user_modal" data-toggle="modal" data-target="#user_modal">Open user</button>
+						<button class="btn btn-default bg_reset" onclick="resetBackgroundColor()">Reset background</button>
+						<input type="file" id="canvas_upload" style="color: #eee;">
+						<!-- <form action="upload.php" method="post" enctype="multipart/form-data">
+								Select image to upload:
+								<input type="file" name="fileToUpload" id="fileToUpload">
+								<input type="submit" value="Upload Image" name="submit">
+							</form> --><!-- php file upload -->
+							<br>
+							<input class="btn btn-default" type="button" onclick="setBackgroundColor()" value="Set">
+							<input type="color" id="color_input">
+						</div>
+					</div>
+					<div class="col-md-10 cafe_wrapper">
+						<div class="cafe" id="canvas">
+							<div class="device_group" v-for="device in device_list">
+								<!-- <device id="1" x="40" y="220" state="on" count="3478" time_left="237"></device>
+								<device id="2" x="120" y="120" state="off" count="" time_left="2789"></device>
+								<device id="3" x="240" y="280" state="new" count="" time_left=""></device>
+								<device id="4" x="200" y="160" state="updating" count="1239" time_left=""></device>
+								<device id="5" x="320" y="120" state="booting" count="283" time_left="5692"></device>
+								<device id="6" x="160" y="40" state="offline" count="" time_left=""></device> -->
+								<!-- <device :id="device.id" :x="device.x" :y="device.y" :state="device.state" :count="device.count" :time_left="device.time_left"></device> -->
+							</div>
+							<device-group id="1" x="500" y="100"></device-group>
+							<device-group id="2" x="120" y="220"></device-group>
+						</div>
+					</div>
+				</div>
+				</main>
+			</div>
+			<!-- Modal -->
+			<div class="modal fade" id="user_modal" role="dialog">
+				<div class="modal-dialog modal-lg">
+					<div class="modal-content modal_wrapper">
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal">&times;</button>
+							<h4 class="modal-title">User profile for 'qdk'</h4>
+						</div>
+						<div class="modal-body">
+							<div class="form-inline">
+								<div class="row">
+									<div class="col-md-12">
+										<input type="button" class="btn btn-default modal_button_green" value="Add time">
+										<input type="button" class="btn btn-default modal_button_green" value="Add products">
+										<input type="button" class="btn btn-default modal_button_green" value="Add money">
+										<input type="button" class="btn btn-default modal_button_red" value="End session">
+									</div>
+								</div>
+								<div class="row modal_info">
+									<div class="col-md-2">
+										<ul>
+											<li><p>Username</p></li>
+											<li><p>Time status</p></li>
+											<li><p>Computer status</p></li>
+										</ul>
+									</div>
+									<div class="col-md-2">
+										<ul>
+											<li><p>qdk</p></li>
+											<li><p>1 h 0 m</p></li>
+											<li><p>Locked</p></li>
+										</ul>
+									</div>
+									<div class="col-md-2">
+										<ul>
+											<li><p>&nbsp;</p></li>
+											<li><p>&nbsp;</p></li>
+											<li><p>User group</p></li>
+										</ul>
+									</div>
+									<div class="col-md-2">
+										<ul>
+											<li><p>&nbsp;</p></li>
+											<li><p>&nbsp;</p></li>
+											<li><p>Member</p></li>
+										</ul>
+									</div>
+									<div class="col-md-4"></div>
+								</div>
+								<hr>
+								<ul class="nav nav-tabs" role="tablist">
+									<li role="presentation" class="active"><a href="#current_session" aria-controls="current_session" role="tab" data-toggle="tab">Current Session</a></li>
+									<li role="presentation"><a href="#personal_details" aria-controls="personal_details" role="tab" data-toggle="tab">Personal Details</a></li>
+									<li role="presentation"><a href="#account_options" aria-controls="account_options" role="tab" data-toggle="tab">Account Options</a></li>
+									<li role="presentation"><a href="#session_history" aria-controls="session_history" role="tab" data-toggle="tab">Session History</a></li>
+									<li role="presentation"><a href="#personal_log" aria-controls="personal_log" role="tab" data-toggle="tab">Personal Log</a></li>
+								</ul>
+								<div class="tab-content">
+									<div role="tabpanel" class="tab-pane fade in active" id="current_session">
+										<div class="row">
+											<div class="col-md-12">
+												<table class="table table-condenced table-hover">
+													<thead>
+														<tr>
+															<td>QTY</td>
+															<td>Product</td>
+															<td>Price</td>
+														</tr>
+													</thead>
+													<tbody>
+														<tr>
+															<td colspan="4">Add your items here</td>
+														</tr>
+													</tbody>
+												</table>
+											</div>
+											<!-- <div class="col-md-5">
+												<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+													<div class="panel panel-default">
+														<div class="panel-heading" role="tab" id="soft_drinks">
+															<h4 class="panel-title">
+															<a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseSoftDrinks" aria-expanded="true" aria-controls="collapseSoftDrinks">
+																Soft drinks
+															</a>
+															</h4>
+														</div>
+														<div id="collapseSoftDrinks" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="soft_drinks">
+															<div class="panel-body">
+																<ul>
+																	<li>Coca Cola - Can</li>
+																	<li>Coca Cola - Bottle</li>
+																	<li>Faxe Kondi - Can</li>
+																	<li>Faxe Kondi - Bottle</li>
+																	<li>Cocio - Can</li>
+																	<li>Cocio - Bottle</li>
+																</ul>
+															</div>
+														</div>
+													</div>
+													<div class="panel panel-default">
+														<div class="panel-heading" role="tab" id="candy">
+															<h4 class="panel-title">
+															<a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseCandy" aria-expanded="true" aria-controls="collapseCandy">
+																Candy
+															</a>
+															</h4>
+														</div>
+														<div id="collapseCandy" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="candy">
+															<div class="panel-body">
+																<ul>
+																	<li>Milky Way</li>
+																	<li>Lion Bar - Light</li>
+																	<li>Lion Bar - Dark</li>
+																	<li>Bueno</li>
+																</ul>
+															</div>
+														</div>
+													</div>
+													<div class="panel panel-default">
+														<div class="panel-heading" role="tab" id="chips">
+															<h4 class="panel-title">
+															<a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseChips" aria-expanded="true" aria-controls="collapseChips">
+																Chips
+															</a>
+															</h4>
+														</div>
+														<div id="collapseChips" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="chips">
+															<div class="panel-body">
+																<ul>
+																	<li>Pringles - Salt &amp; Pepper</li>
+																	<li>Pringles - Chili</li>
+																	<li>Pringles - Sour Cream &amp; Onions</li>
+																</ul>
+															</div>
+														</div>
+													</div>
+												</div>
+											</div> -->
+										</div>
+									</div>
+									<div role="tabpanel" class="tab-pane fade" id="personal_details">
+										personal details
+									</div>
+									<div role="tabpanel" class="tab-pane fade" id="account_options">
+										<table class="table table-condenced table-hover table-bordered">
+											<tbody>
+												<tr>
+													<td>12345</td>
+													<td>2016-07-12 15:39:53</td>
+													<td>2016-07-12 16:22:34</td>
+												</tr>
+												<tr>
+													<td>12345</td>
+													<td>2016-07-12 15:39:53</td>
+													<td>2016-07-12 16:22:34</td>
+												</tr>
+												<tr>
+													<td>12345</td>
+													<td>2016-07-12 15:39:53</td>
+													<td>2016-07-12 16:22:34</td>
+												</tr>
+												<tr>
+													<td>12345</td>
+													<td>2016-07-12 15:39:53</td>
+													<td>2016-07-12 16:22:34</td>
+												</tr>
+												<tr>
+													<td>12345</td>
+													<td>2016-07-12 15:39:53</td>
+													<td>2016-07-12 16:22:34</td>
+												</tr>
+												<tr>
+													<td>12345</td>
+													<td>2016-07-12 15:39:53</td>
+													<td>2016-07-12 16:22:34</td>
+												</tr>
+												<tr>
+													<td>12345</td>
+													<td>2016-07-12 15:39:53</td>
+													<td>2016-07-12 16:22:34</td>
+												</tr>
+												<tr>
+													<td>12345</td>
+													<td>2016-07-12 15:39:53</td>
+													<td>2016-07-12 16:22:34</td>
+												</tr>
+											</tbody>
+										</table>
+									</div>
+									<div role="tabpanel" class="tab-pane fade" id="session_history">
+										session history
+									</div>
+									<div role="tabpanel" class="tab-pane fade" id="personal_log">
+										personal log
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-default" data-dismiss="modal">Pay and finish</button>
+							<button type="button" class="btn btn-default" data-dismiss="modal">Save</button>
+							<button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- Device template -->
+			<template id="device-template">
+			<div class="device device_menu" :class="state" :style="{ left: x + 'px', top: y + 'px' }">
+				<div class="progress vertical">
+					<div class="progress-bar progress-bar-success device_progress" role="progressbar" aria-valuenow="{ count }" aria-valuemin="0" aria-valuemax="100" :style="{ width: count + '%' }"></div>
+				</div>
+				<span class="device_label">{{ id }}</span>
+				<!-- <span class="device_badge counter">{{ count }}</span> -->
+				<span class="device_badge time_left">{{ time_left }}</span>
+			</div>
+			</template>
+			<!-- Group template -->
+			<template id="group-template">
+			<div class="group" :style="{ left: x + 'px', top: y + 'px' }">
+				<device id="1" x="40" y="40" state="on"></device>
+				<device id="2" x="40" y="80" state="busy" time_left="999" count="80"></device>
+				<device id="3" x="80" y="80" state="new" time_left="12"></device>
+			</div>
+			</template>
+			<!-- Latest compiled and minified jQuery -->
+			<script src="https://code.jquery.com/jquery-3.1.0.min.js"></script>
+			<!-- Latest compiled and minified Bootstrap JavaScript -->
+			<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+			<!-- Latest compiled and minified Vue -->
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/1.0.26/vue.js"></script>
+			<!-- Latest compiled and minified contextMenu Javascript -->
+			<script src="contextMenu.js"></script>
+			<!-- Vue app -->
+			<script src="app.js"></script>
+			<!-- Main JS -->
+			<script src="main.js"></script>
+		</body>
+	</html>
